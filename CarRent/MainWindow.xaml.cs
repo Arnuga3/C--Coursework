@@ -72,10 +72,83 @@ namespace CarRent
             }
         }
 
+        private void DisplayCurrentOrders()
+        {
+            using (var db = new CarRentModelContainer())
+            {
+                // LINQ query to fill a list with 'all orders' result
+                //Join 3 tables (Orders, Cars, Customers)
+                var query = from o in db.Orders
+                            join c in db.Cars on o.carID equals c.ID
+                            join cu in db.Customers on o.customerID equals cu.ID
+                            // Add number of days to a 'start date' to get an 'end date'
+                            let d = SqlFunctions.DateAdd("dd", o.duration, o.startDate)
+                            // Write to new objects with properties used in a binding
+                            where o.startDate <= DateTime.Now && d >= DateTime.Now
+                            select new
+                            {
+                                ID = o.ID,
+                                regNumber = c.regNumber,
+                                dailyRate = c.dailyRate,
+                                duration = o.duration,
+                                startDate = o.startDate,
+                                endDate = d,
+                                total = o.duration * c.dailyRate,
+                                customer = cu.firstName + " " + cu.lastName
+                            };
+                // Bind to a list
+                listView.ItemsSource = query.ToList();
+            }
+        }
+
+        private void DisplayPendingOrders()
+        {
+            using (var db = new CarRentModelContainer())
+            {
+                // LINQ query to fill a list with 'all orders' result
+                //Join 3 tables (Orders, Cars, Customers)
+                var query = from o in db.Orders
+                            join c in db.Cars on o.carID equals c.ID
+                            join cu in db.Customers on o.customerID equals cu.ID
+                            // Add number of days to a 'start date' to get an 'end date'
+                            let d = SqlFunctions.DateAdd("dd", o.duration, o.startDate)
+                            // Write to new objects with properties used in a binding
+                            where o.startDate > DateTime.Now
+                            select new
+                            {
+                                ID = o.ID,
+                                regNumber = c.regNumber,
+                                dailyRate = c.dailyRate,
+                                duration = o.duration,
+                                startDate = o.startDate,
+                                endDate = d,
+                                total = o.duration * c.dailyRate,
+                                customer = cu.firstName + " " + cu.lastName
+                            };
+                // Bind to a list
+                listView.ItemsSource = query.ToList();
+            }
+        }
+
 
         private void ordersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void AllOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayAllOrders();
+        }
+
+        private void CurrentOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayCurrentOrders();
+        }
+
+        private void PendingOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayPendingOrders();
         }
     }
 }
