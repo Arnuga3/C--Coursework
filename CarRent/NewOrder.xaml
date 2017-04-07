@@ -1,0 +1,38 @@
+﻿<Window x:Class="CarRent.NewOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarRent"
+        mc:Ignorable="d"
+        Title="NewOrder" Height="328.124" Width="443.75">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF9E9E9E" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <DatePicker x:Name="startDateNewOrder" HorizontalAlignment="Left" Margin="19,47,0,0" VerticalAlignment="Top" Width="108"/>
+        <DatePicker x:Name="endDateNewOrder" HorizontalAlignment="Left" Margin="161,47,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy" Content="To:" HorizontalAlignment="Left" Margin="131,46,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="carListNewOrder" HorizontalAlignment="Left" Margin="19,110,0,0" VerticalAlignment="Top" Width="244"/>
+        <Label x:Name="label_Copy1" Content="Car:" HorizontalAlignment="Left" Margin="19,79,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="lastnameNewOrder" HorizontalAlignment="Left" Height="23" Margin="87,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
+        <TextBox x:Name="nameNewOrder" HorizontalAlignment="Left" Height="23" Margin="87,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
+        <Label x:Name="label1" Content="First name" HorizontalAlignment="Left" Margin="19,172,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Copy" Content="Last name" HorizontalAlignment="Left" Margin="19,206,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Copy1" Content="Customer Details:" HorizontalAlignment="Left" Margin="18,141,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="label_Copy2" Content="Rent Dates:" HorizontalAlignment="Left" Margin="18,13,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.429,-2.438"/>
+        <RichTextBox x:Name="summaryNewOrder" HorizontalAlignment="Left" Height="206" Margin="295,26,0,0" VerticalAlignment="Top" Width="123">
+            <FlowDocument>
+                <Paragraph>
+                    <Run/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button x:Name="SaveBtnNewOrder" Content="Save" HorizontalAlignment="Left" Margin="19,267,0,0" VerticalAlignment="Top" Width="80" Click="button_Click" Background="#FFC1FFAA"/>
+        <Button x:Name="CancelBtnNewOrder" Content="Cancel" HorizontalAlignment="Left" Margin="338,267,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.513,-0.341" Background="#FFE6C3C3"/>
+
+    </Grid>
+</Window>
