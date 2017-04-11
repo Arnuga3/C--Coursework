@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/07/2017 02:48:25
+-- Date Created: 04/10/2017 23:31:43
 -- Generated from EDMX file: C:\Users\arnis\Documents\Visual Studio 2015\Projects\CarRent\CarRent\CarRentModel.edmx
 -- --------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE [dbo].[Customers] (
     [ID] int IDENTITY(1,1) NOT NULL,
     [firstName] nvarchar(max)  NOT NULL,
     [lastName] nvarchar(max)  NOT NULL,
-    [DrivingLicense] nvarchar(max)  NOT NULL
+    [drivingLicense] nvarchar(max)  NOT NULL
 );
 GO
 

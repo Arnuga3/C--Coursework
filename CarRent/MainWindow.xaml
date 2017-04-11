@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRent"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="583.334" Loaded="Window_Loaded">
+        Title="MainWindow" Height="350" Width="784.02" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="ordersViewSource" d:DesignSource="{d:DesignInstance {x:Type local:Orders}, CreateList=True}"/>
     </Window.Resources>
@@ -26,16 +26,18 @@
                     <Grid Margin="0,0,0,14" DataContext="{StaticResource ordersViewSource}">
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FF3C3C3C" Offset="0.394"/>
+                                <GradientStop Color="Black"/>
                                 <GradientStop Color="White" Offset="1"/>
                             </LinearGradientBrush>
                         </Grid.Background>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="44*"/>
-                            <ColumnDefinition Width="125*"/>
-                            <ColumnDefinition Width="335*"/>
+                            <ColumnDefinition Width="67*"/>
+                            <ColumnDefinition Width="51*"/>
+                            <ColumnDefinition Width="24*"/>
+                            <ColumnDefinition Width="261*"/>
+                            <ColumnDefinition Width="367*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="AddNewOrderBtn" Content="Add new" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="AddNewOrderBtn_Click">
+                        <Button x:Name="AddNewOrderBtn" Content="Add new" HorizontalAlignment="Left" Margin="21,238,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="AddNewOrderBtn_Click" Height="20">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                                     <GradientStop Color="#FFEEEE57" Offset="1"/>
@@ -43,7 +45,7 @@
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="CurrentOrderBtn" Content="Current" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="CurrentOrderBtn_Click">
+                        <Button x:Name="CurrentOrderBtn" Content="Current" HorizontalAlignment="Left" Margin="21,21,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="CurrentOrderBtn_Click" Height="20">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="White" Offset="0"/>
@@ -51,7 +53,7 @@
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="PendingOrderBtn" Content="Pending" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="PendingOrderBtn_Click">
+                        <Button x:Name="PendingOrderBtn" Content="Pending" HorizontalAlignment="Left" Margin="21,46,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="PendingOrderBtn_Click" Height="20">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="White" Offset="0"/>
@@ -59,7 +61,7 @@
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="CompletedOrderBtn" Content="Completed" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="CompletedOrderBtn_Click">
+                        <Button x:Name="CompletedOrderBtn" Content="Completed" HorizontalAlignment="Left" Margin="21,71,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="CompletedOrderBtn_Click" Height="20">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="White" Offset="0"/>
@@ -67,8 +69,8 @@
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="AllOrderBtn" Content="Show all" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="AllOrderBtn_Click" Background="#FF727272" BorderThickness="1" Foreground="White" FontWeight="SemiBold" BorderBrush="White"/>
-                        <ListView x:Name="listView" Grid.ColumnSpan="2" Grid.Column="1" Height="248" Margin="51,10,10,0" VerticalAlignment="Top" ItemsSource="{Binding}">
+                        <Button x:Name="AllOrderBtn" Content="Show all" HorizontalAlignment="Left" Margin="21,96,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="AllOrderBtn_Click" Background="#FF727272" BorderThickness="1" Foreground="White" FontWeight="SemiBold" BorderBrush="White" Height="20"/>
+                        <ListView x:Name="listView" Grid.ColumnSpan="3" Grid.Column="2" Height="248" Margin="0,10,10,0" VerticalAlignment="Top" ItemsSource="{Binding}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=ID}"></GridViewColumn>
@@ -76,6 +78,7 @@
                                     <GridViewColumn Header="End date" DisplayMemberBinding="{Binding Path=endDate, StringFormat=d, ConverterCulture=en-GB}"></GridViewColumn>
                                     <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Path=duration}"></GridViewColumn>
                                     <GridViewColumn Header="Customer" DisplayMemberBinding="{Binding Path=customer}"></GridViewColumn>
+                                    <GridViewColumn Header="Driving License" DisplayMemberBinding="{Binding Path=license}"></GridViewColumn>
                                     <GridViewColumn Header="Car" DisplayMemberBinding="{Binding Path=regNumber}"></GridViewColumn>
                                     <GridViewColumn Header="Rate" DisplayMemberBinding="{Binding Path=dailyRate}"></GridViewColumn>
                                     <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Path=total}"></GridViewColumn>
@@ -84,22 +87,35 @@
                         </ListView>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Cars" Width="100">
+                <TabItem Header="Cars" Width="100" Margin="3,0,-3,-2">
                     <TabItem.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF0F0F0" Offset="0"/>
                             <GradientStop Color="#FFB8CB3E" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <Grid Background="#FF5B5B5B" Margin="0,0,0,6">
+                    <Grid Margin="0,0,0,6">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="White" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="43*"/>
-                            <ColumnDefinition Width="468*"/>
+                            <ColumnDefinition Width="48*"/>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="509*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="AddNewCarBtn" Content="Add new" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="75" Background="#FFA0CAD6" Grid.ColumnSpan="2"/>
-                        <Button x:Name="InRentCarBtn" Content="In rent" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="75" Background="#FFB1CF8E" Grid.ColumnSpan="2"/>
-                        <Button x:Name="AvailableCarBtn" Content="Available" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" Width="75" Background="#FFB1CF8E" Grid.ColumnSpan="2"/>
-                        <Button x:Name="AllCarBtn" Content="Show all" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="75" Background="#FFC9C8AF" Grid.ColumnSpan="2"/>
+                        <Button x:Name="AddNewCarBtn" Content="Add new car" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="133" Background="#FFD8D8D8" Click="AddNewCarBtn_Click" Grid.ColumnSpan="3"/>
+                        <ListView x:Name="listViewCars" Height="210" Margin="10,45,10,0" VerticalAlignment="Top" ItemsSource="{Binding}" Grid.ColumnSpan="3">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=ID}"></GridViewColumn>
+                                    <GridViewColumn Header="Car" DisplayMemberBinding="{Binding Path=regNumber}"></GridViewColumn>
+                                    <GridViewColumn Header="Daily Rate" DisplayMemberBinding="{Binding Path=dailyRate}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Customers" Width="100">
@@ -114,15 +130,31 @@
                             <ColumnDefinition Width="178*"/>
                             <ColumnDefinition Width="333*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Background="#FF5B5B5B" Grid.ColumnSpan="2">
+                        <Grid Grid.ColumnSpan="2">
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="43*"/>
                                 <ColumnDefinition Width="468*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="CustomerSearchField" HorizontalAlignment="Left" Height="23" Margin="10,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="411" Grid.ColumnSpan="2"/>
-                            <Button x:Name="CustomerSearchBtn" Content="Search" Grid.Column="1" HorizontalAlignment="Left" Margin="383,15,0,0" VerticalAlignment="Top" Width="75" Height="23" Background="#FFB1CF8E"/>
+                            <TextBox x:Name="CustomerSearchField" HorizontalAlignment="Left" Height="23" Margin="50,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="690" Grid.ColumnSpan="2" TextChanged="CustomerSearchField_TextChanged"/>
                             <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="230" Margin="10,50,0,0" VerticalAlignment="Top" Width="484"/>
                             <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="230" Margin="10,50,0,0" VerticalAlignment="Top" Width="484"/>
+                            <ListView x:Name="listViewCustomers" Height="210" Margin="10,50,21,0" VerticalAlignment="Top" ItemsSource="{Binding}" Grid.ColumnSpan="2">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=ID}"></GridViewColumn>
+                                        <GridViewColumn Header="First name" DisplayMemberBinding="{Binding Path=firstName}"></GridViewColumn>
+                                        <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding Path=lastName}"></GridViewColumn>
+                                        <GridViewColumn Header="Driving License" DisplayMemberBinding="{Binding Path=drivingLicense}"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Image x:Name="image" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" Width="35" Source="Resources/magnifying-glass-icon.png"/>
                         </Grid>
                     </Grid>
                 </TabItem>

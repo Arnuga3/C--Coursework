@@ -17,6 +17,6 @@ namespace CarRent
         public int ID { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public string DrivingLicense { get; set; }
+        public string drivingLicense { get; set; }
     }
 }
