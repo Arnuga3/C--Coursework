@@ -26,7 +26,7 @@ namespace CarRent
         {
             InitializeComponent();
             this.startDateNewOrder.SelectedDate = DateTime.Now;
-            this.startDateNewOrder.SelectedDate = DateTime.Now;
+            this.endDateNewOrder.SelectedDate = DateTime.Now;
             LoadCarComboBox();
         }
 
@@ -35,9 +35,9 @@ namespace CarRent
             this.dbContext = new CarRentModelContainer();
 
             DateTime fromD = (DateTime)this.startDateNewOrder.SelectedDate;
-            DateTime toD = fromD;
+            var toD = this.endDateNewOrder.SelectedDate;
 
-            // Get all cart available within selected dates and add them to a comboBox
+            // Get all cars available within selected dates and add them to a comboBox
             var query = (from c in this.dbContext.Cars select c.regNumber)
                 .Except
                 (

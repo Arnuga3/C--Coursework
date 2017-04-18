@@ -306,6 +306,28 @@ namespace CarRent
                 }
             }
         }
+
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listView.SelectedItems.Count > 0)
+            {
+                var item = (dynamic)listView.SelectedItems[0];
+                OrderFullDetails order = new OrderFullDetails
+                {
+                    ID = item.ID,
+                    startDate = item.startDate,
+                    endDate = item.endDate,
+                    duration = item.duration,
+                    customer = item.customer,
+                    license = item.license,
+                    regNumber = item.regNumber,
+                    dailyRate = item.dailyRate,
+                    total = item.total
+                };
+                EditOrderDialog dialog = new EditOrderDialog(order);
+                bool? result = dialog.ShowDialog();
+            }
+        }
     }
 }
 

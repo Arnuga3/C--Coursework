@@ -1,0 +1,34 @@
+﻿<Window x:Class="CarRent.EditOrderDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarRent"
+        mc:Ignorable="d"
+        Title="EditOrderDialog" Height="347.656" Width="435.938">
+    <Grid>
+        <DatePicker x:Name="startDateEditOrder" HorizontalAlignment="Left" Margin="19,47,0,0" VerticalAlignment="Top" Width="108" SelectedDateChanged="handleDayPickerDates"/>
+        <DatePicker x:Name="endDateEditOrder" HorizontalAlignment="Left" Margin="161,47,0,0" VerticalAlignment="Top" SelectedDateChanged="handleDayPickerDates"/>
+        <Label x:Name="label_Copy" Content="To:" HorizontalAlignment="Left" Margin="131,46,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="carListEditOrder" HorizontalAlignment="Left" Margin="19,110,0,0" VerticalAlignment="Top" Width="244" SelectionChanged="carListEditOrder_SelectionChanged"/>
+        <Label x:Name="CurrCarLabel" Content="Car:" HorizontalAlignment="Left" Margin="19,79,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="firstnameEditOrder" HorizontalAlignment="Left" Height="23" Margin="113,208,-112,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291"/>
+        <TextBox x:Name="lastnameEditOrder" HorizontalAlignment="Left" Height="23" Margin="113,242,-112,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291"/>
+        <Label x:Name="label1" Content="First name" HorizontalAlignment="Left" Margin="19,205,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Copy" Content="Last name" HorizontalAlignment="Left" Margin="19,239,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Copy1" Content="Customer Details:" HorizontalAlignment="Left" Margin="18,141,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label x:Name="label_Copy2" Content="Rent Dates:" HorizontalAlignment="Left" Margin="18,13,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.429,-2.438"/>
+        <RichTextBox x:Name="summaryEditOrder" HorizontalAlignment="Left" Height="132" Margin="301,26,0,0" VerticalAlignment="Top" Width="103">
+            <FlowDocument>
+                <Paragraph>
+                    <Run/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button x:Name="SaveBtnEditOrder" Content="Save" HorizontalAlignment="Left" Margin="19,281,0,-32" VerticalAlignment="Top" Width="80" Background="#FFC1FFAA" Click="SaveBtnEditOrder_Click"/>
+        <Button x:Name="CancelBtnEditOrder" Content="Cancel" HorizontalAlignment="Left" Margin="324,281,-112,-32" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.513,-0.341" Background="#FFE6C3C3" Click="CancelBtnEditOrder_Click"/>
+        <TextBox x:Name="drivingLicenseEditOrder" HorizontalAlignment="Left" Height="23" Margin="113,172,-112,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291" TextChanged="drivingLicenseEditOrder_TextChanged"/>
+        <Label x:Name="label1_Copy2" Content="Driving License" HorizontalAlignment="Left" Margin="19,172,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
