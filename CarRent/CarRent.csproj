@@ -68,6 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="EditCarDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditOrderDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +104,9 @@
     </Compile>
     <Compile Include="Customers.cs">
       <DependentUpon>CarRentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditCarDialog.xaml.cs">
+      <DependentUpon>EditCarDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditOrderDialog.xaml.cs">
       <DependentUpon>EditOrderDialog.xaml</DependentUpon>

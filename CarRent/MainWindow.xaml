@@ -20,7 +20,7 @@
                     <TabItem.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="#FFB8CB3E" Offset="1"/>
+                            <GradientStop Color="#FF5686A8" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
                     <Grid Margin="0,0,0,14" DataContext="{StaticResource ordersViewSource}">
@@ -37,39 +37,25 @@
                             <ColumnDefinition Width="261*"/>
                             <ColumnDefinition Width="367*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="AddNewOrderBtn" Content="Add new" HorizontalAlignment="Left" Margin="21,238,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="AddNewOrderBtn_Click" Height="20">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                    <GradientStop Color="#FFEEEE57" Offset="1"/>
-                                    <GradientStop Color="White"/>
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="CurrentOrderBtn" Content="Current" HorizontalAlignment="Left" Margin="21,21,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="CurrentOrderBtn_Click" Height="20">
+                        <Button x:Name="AddNewOrderBtn" Content="Add new" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top" Width="98" Grid.ColumnSpan="2" Click="AddNewOrderBtn_Click" Height="20" Background="#FF636363" Foreground="White" BorderBrush="Black" FontWeight="Bold"/>
+                        <Button x:Name="CurrentOrderBtn" Content="Current" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Width="98" Grid.ColumnSpan="2" Click="CurrentOrderBtn_Click" Height="20" Background="#FFF0F0F0"/>
+                        <Button x:Name="PendingOrderBtn" Content="Pending" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="98" Grid.ColumnSpan="2" Click="PendingOrderBtn_Click" Height="20">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="White" Offset="0"/>
-                                    <GradientStop Color="#FF69B236" Offset="1"/>
+                                    <GradientStop Color="White" Offset="1"/>
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="PendingOrderBtn" Content="Pending" HorizontalAlignment="Left" Margin="21,46,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="PendingOrderBtn_Click" Height="20">
+                        <Button x:Name="CompletedOrderBtn" Content="Completed" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="98" Grid.ColumnSpan="2" Click="CompletedOrderBtn_Click" Height="20">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="White" Offset="0"/>
-                                    <GradientStop Color="#FF429DB2" Offset="1"/>
+                                    <GradientStop Color="White" Offset="1"/>
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
-                        <Button x:Name="CompletedOrderBtn" Content="Completed" HorizontalAlignment="Left" Margin="21,71,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="CompletedOrderBtn_Click" Height="20">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="White" Offset="0"/>
-                                    <GradientStop Color="#FF666666" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="AllOrderBtn" Content="Show all" HorizontalAlignment="Left" Margin="21,96,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="AllOrderBtn_Click" Background="#FF727272" BorderThickness="1" Foreground="White" FontWeight="SemiBold" BorderBrush="White" Height="20"/>
+                        <Button x:Name="AllOrderBtn" Content="Show all" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="98" Grid.ColumnSpan="2" Click="AllOrderBtn_Click" Background="#FF727272" BorderThickness="1" Foreground="White" FontWeight="SemiBold" BorderBrush="White" Height="20"/>
                         <ListView x:Name="listView" Grid.ColumnSpan="3" Grid.Column="2" Height="248" Margin="0,10,10,0" VerticalAlignment="Top" ItemsSource="{Binding}" SelectionChanged="listView_SelectionChanged">
                             <ListView.View>
                                 <GridView>
@@ -87,11 +73,11 @@
                         </ListView>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Cars" Width="100" Margin="3,0,-3,-2">
+                <TabItem Header="Cars" Width="100" Margin="2,0,-2,0">
                     <TabItem.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="#FFB8CB3E" Offset="1"/>
+                            <GradientStop Color="#FF5686A8" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
                     <Grid Margin="0,0,0,6">
@@ -106,8 +92,8 @@
                             <ColumnDefinition Width="12*"/>
                             <ColumnDefinition Width="509*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="AddNewCarBtn" Content="Add new car" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="133" Background="#FFD8D8D8" Click="AddNewCarBtn_Click" Grid.ColumnSpan="3"/>
-                        <ListView x:Name="listViewCars" Height="210" Margin="10,45,10,0" VerticalAlignment="Top" ItemsSource="{Binding}" Grid.ColumnSpan="3">
+                        <Button x:Name="AddNewCarBtn" Content="Add new car" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="133" Background="#FF7A7878" Click="AddNewCarBtn_Click" Grid.ColumnSpan="3" Foreground="White" FontWeight="Bold"/>
+                        <ListView x:Name="listViewCars" Height="210" Margin="10,45,10,0" VerticalAlignment="Top" ItemsSource="{Binding}" Grid.ColumnSpan="3" SelectionChanged="listViewCars_SelectionChanged">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=ID}"></GridViewColumn>
@@ -118,11 +104,11 @@
                         </ListView>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Customers" Width="100">
+                <TabItem Header="Customers" Width="100" Margin="2,0,-2,0" Height="24">
                     <TabItem.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                            <GradientStop Color="#FFB8CB3E" Offset="1"/>
+                            <GradientStop Color="#FF5686A8" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
                     <Grid Background="#FFE5E5E5">

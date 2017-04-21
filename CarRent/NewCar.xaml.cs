@@ -19,6 +19,10 @@ namespace CarRent
     /// </summary>
     public partial class newCar : Window
     {
+
+        private CarRentModelContainer dbContext;
+        private Boolean allowSaving = true;
+
         public newCar()
         {
             InitializeComponent();
@@ -26,13 +30,33 @@ namespace CarRent
 
         private void SaveNewCarBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            this.DialogResult = allowSaving ? true : false;
             this.Close();
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void RegNumNewCar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.dbContext = new CarRentModelContainer();
+            var query = from c in this.dbContext.Cars select c;
+            foreach (var car in query)
+            {
+                if (this.RegNumNewCar.Text.ToUpper() == car.regNumber.ToUpper())
+                {
+                    this.errorLabel.Content = "! That car is already registered.";
+                    allowSaving = false;
+                    break;
+                }
+                else
+                {
+                    allowSaving = true;
+                    this.errorLabel.Content = "";
+                }
+            }
         }
     }
 }

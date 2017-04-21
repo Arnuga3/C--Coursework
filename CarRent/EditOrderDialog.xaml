@@ -25,10 +25,11 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Button x:Name="SaveBtnEditOrder" Content="Save" HorizontalAlignment="Left" Margin="19,281,0,-32" VerticalAlignment="Top" Width="80" Background="#FFC1FFAA" Click="SaveBtnEditOrder_Click"/>
-        <Button x:Name="CancelBtnEditOrder" Content="Cancel" HorizontalAlignment="Left" Margin="324,281,-112,-32" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.513,-0.341" Background="#FFE6C3C3" Click="CancelBtnEditOrder_Click"/>
+        <Button x:Name="SaveBtnEditOrder" Content="Save" HorizontalAlignment="Left" Margin="19,281,0,-32" VerticalAlignment="Top" Width="80" Background="#FF88FFA3" Click="SaveBtnEditOrder_Click"/>
+        <Button x:Name="CancelBtnEditOrder" Content="Cancel" HorizontalAlignment="Left" Margin="324,281,-112,-32" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.513,-0.341" Background="#FFC0E2E8" Click="CancelBtnEditOrder_Click"/>
         <TextBox x:Name="drivingLicenseEditOrder" HorizontalAlignment="Left" Height="23" Margin="113,172,-112,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291" TextChanged="drivingLicenseEditOrder_TextChanged"/>
         <Label x:Name="label1_Copy2" Content="Driving License" HorizontalAlignment="Left" Margin="19,172,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="DeleteBtnEditOrder" Content="Delete" HorizontalAlignment="Left" Margin="229,281,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.513,-0.341" Background="#FFE4B1B1" Click="DeleteBtnEditOrder_Click"/>
 
     </Grid>
 </Window>

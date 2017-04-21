@@ -13,10 +13,10 @@
                 <GradientStop Color="White" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <DatePicker x:Name="startDateNewOrder" HorizontalAlignment="Left" Margin="19,47,0,0" VerticalAlignment="Top" Width="108" SelectedDateChanged="handleDayPickerDates"/>
-        <DatePicker x:Name="endDateNewOrder" HorizontalAlignment="Left" Margin="161,47,0,0" VerticalAlignment="Top" SelectedDateChanged="handleDayPickerDates"/>
-        <Label x:Name="label_Copy" Content="To:" HorizontalAlignment="Left" Margin="131,46,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="carListNewOrder" HorizontalAlignment="Left" Margin="19,110,0,0" VerticalAlignment="Top" Width="244" SelectionChanged="carListNewOrder_SelectionChanged"/>
+        <DatePicker x:Name="startDateNewOrder" HorizontalAlignment="Left" Margin="19,47,0,0" VerticalAlignment="Top" Width="167" SelectedDateChanged="handleDayPickerDates"/>
+        <DatePicker x:Name="endDateNewOrder" HorizontalAlignment="Left" Margin="237,46,0,0" VerticalAlignment="Top" SelectedDateChanged="handleDayPickerDates" Width="167"/>
+        <Label x:Name="label_Copy" Content="To:" HorizontalAlignment="Left" Margin="199,46,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="carListNewOrder" HorizontalAlignment="Left" Margin="19,110,0,0" VerticalAlignment="Top" Width="385" SelectionChanged="carListNewOrder_SelectionChanged"/>
         <Label x:Name="label_Copy1" Content="Car:" HorizontalAlignment="Left" Margin="19,79,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox x:Name="firstnameNewOrder" HorizontalAlignment="Left" Height="23" Margin="113,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291"/>
         <TextBox x:Name="lastnameNewOrder" HorizontalAlignment="Left" Height="23" Margin="113,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291"/>
@@ -24,13 +24,6 @@
         <Label x:Name="label1_Copy" Content="Last name" HorizontalAlignment="Left" Margin="19,239,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1_Copy1" Content="Customer Details:" HorizontalAlignment="Left" Margin="18,141,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label x:Name="label_Copy2" Content="Rent Dates:" HorizontalAlignment="Left" Margin="18,13,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.429,-2.438"/>
-        <RichTextBox x:Name="summaryNewOrder" HorizontalAlignment="Left" Height="132" Margin="281,26,0,0" VerticalAlignment="Top" Width="123">
-            <FlowDocument>
-                <Paragraph>
-                    <Run/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
         <Button x:Name="SaveBtnNewOrder" Content="Save" HorizontalAlignment="Left" Margin="19,281,0,0" VerticalAlignment="Top" Width="80" Background="#FFC1FFAA" Click="SaveBtnNewOrder_Click"/>
         <Button x:Name="CancelBtnNewOrder" Content="Cancel" HorizontalAlignment="Left" Margin="324,281,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.513,-0.341" Background="#FFE6C3C3" Click="CancelBtnNewOrder_Click"/>
         <TextBox x:Name="drivingLicenseNewOrder" HorizontalAlignment="Left" Height="23" Margin="113,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="291" TextChanged="drivingLicenseNewOrder_TextChanged"/>

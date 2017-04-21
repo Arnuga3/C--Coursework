@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Data.Entity.SqlServer;
 
 namespace CarRent
@@ -27,6 +17,7 @@ namespace CarRent
         }
 
         private CarRentModelContainer dbContext;
+        private int orderListType = 0;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -46,6 +37,12 @@ namespace CarRent
             DisplayAllCarsList();
             DisplayAllCustomersList();
         }
+
+
+        /*
+         * CUSTOMERS TAB
+         */
+
 
         private void DisplayAllCustomersList()
         {
@@ -76,6 +73,12 @@ namespace CarRent
             
         }
 
+
+        /*
+         * CARS TAB
+         */
+
+        // ALL cars list
         private void DisplayAllCarsList()
         {
             this.dbContext = new CarRentModelContainer();
@@ -86,6 +89,51 @@ namespace CarRent
             listViewCars.ItemsSource = query.ToList();
         }
 
+        // ADD NEW car
+        private void AddNewCarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            newCar dialog = new newCar();
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                String regNum = dialog.RegNumNewCar.Text;
+                String dailyRateField = dialog.DailyRateNewCar.Text;
+                if (regNum != null && dailyRateField != null)
+                {
+                    float dailyRate = (float)Convert.ToDouble(dialog.DailyRateNewCar.Text);
+
+                    Cars car = new Cars { regNumber = regNum, dailyRate = dailyRate };
+                    this.dbContext.Cars.Add(car);
+                    this.dbContext.SaveChanges();
+
+                    DisplayAllCarsList();
+                }
+            }
+        }
+
+        private void listViewCars_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            object selected = this.listViewCars.SelectedItem;
+            if (selected == null)
+                return;
+                Cars car = (Cars)selected;
+                EditCarDialog dialog = new EditCarDialog(car);
+                bool? result = dialog.ShowDialog();
+            if (result == true)
+            {
+                car.regNumber = dialog.RegNumNewCar.Text;
+                car.dailyRate = Double.Parse(dialog.DailyRateNewCar.Text);
+                this.dbContext.SaveChanges();
+            }
+        }
+
+
+        /*
+         * ORDERS TAB
+         */
+
+        // ALL orders list
         private void DisplayAllOrders()
         {
             this.dbContext = new CarRentModelContainer();
@@ -113,6 +161,7 @@ namespace CarRent
             listView.ItemsSource = query.ToList();
         }
 
+        // CURRENT orders list
         private void DisplayCurrentOrders()
         {
             this.dbContext = new CarRentModelContainer();
@@ -141,6 +190,7 @@ namespace CarRent
             listView.ItemsSource = query.ToList();
         }
 
+        // PENDING orders list
         private void DisplayPendingOrders()
         {
             this.dbContext = new CarRentModelContainer();
@@ -169,6 +219,7 @@ namespace CarRent
             listView.ItemsSource = query.ToList();
         }
 
+        // COMPLETED orders list
         private void DisplayCompletedOrders()
         {
             this.dbContext = new CarRentModelContainer();
@@ -197,32 +248,32 @@ namespace CarRent
             listView.ItemsSource = query.ToList();
         }
 
-
-        private void ordersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+        // ALL orders list btn action
         private void AllOrderBtn_Click(object sender, RoutedEventArgs e)
         {
+            orderListType = 0;
             DisplayAllOrders();
         }
-
+        // CURRENT orders list btn action
         private void CurrentOrderBtn_Click(object sender, RoutedEventArgs e)
         {
+            orderListType = 1;
             DisplayCurrentOrders();
         }
-
+        // PENDING orders list btn action
         private void PendingOrderBtn_Click(object sender, RoutedEventArgs e)
         {
+            orderListType = 2;
             DisplayPendingOrders();
         }
-
+        // COMPLETED orders list btn action
         private void CompletedOrderBtn_Click(object sender, RoutedEventArgs e)
         {
+            orderListType = 3;
             DisplayCompletedOrders();
         }
 
+        // ADD NEW order
         private void AddNewOrderBtn_Click(object sender, RoutedEventArgs e)
         {
             NewOrder dialog = new NewOrder();
@@ -279,34 +330,24 @@ namespace CarRent
                     this.dbContext.Orders.Add(newO);
                     this.dbContext.SaveChanges();
 
-                    // Refresh the list (display all - default)
-                    DisplayAllOrders();
+                    // Refresh the list
+                    switch (orderListType)
+                    {
+                        case 0: DisplayAllOrders();
+                            break;
+                        case 1: DisplayCurrentOrders();
+                            break;
+                        case 2: DisplayPendingOrders();
+                            break;
+                        case 3: DisplayCompletedOrders();
+                            break;
+                    }
+                    
                 }
             }
         }
 
-        private void AddNewCarBtn_Click(object sender, RoutedEventArgs e)
-        {
-            newCar dialog = new newCar();
-            bool? result = dialog.ShowDialog();
-
-            if (result == true)
-            {
-                String regNum = dialog.RegNumNewCar.Text;
-                String dailyRateField = dialog.DailyRateNewCar.Text;
-                if (regNum != null && dailyRateField != null)
-                {
-                    float dailyRate = (float)Convert.ToDouble(dialog.DailyRateNewCar.Text);
-
-                    Cars car = new Cars { regNumber = regNum, dailyRate = dailyRate };
-                    this.dbContext.Cars.Add(car);
-                    this.dbContext.SaveChanges();
-
-                    DisplayAllCarsList();
-                }
-            }
-        }
-
+        // EDIT/DELETE order
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listView.SelectedItems.Count > 0)
@@ -326,6 +367,86 @@ namespace CarRent
                 };
                 EditOrderDialog dialog = new EditOrderDialog(order);
                 bool? result = dialog.ShowDialog();
+
+                if (result == true)
+                {
+                    // Getting data from a dialog form
+                    DateTime fromDate = (DateTime)dialog.startDateEditOrder.SelectedDate;
+                    DateTime toDate = (DateTime)dialog.endDateEditOrder.SelectedDate;
+                    // Calc the duration
+                    int duration = (toDate - fromDate).Days;
+                    // >>> carID is actually a regNumber HERE!!!
+                    String carID = dialog.carListEditOrder.Text;
+                    String custName = dialog.firstnameEditOrder.Text;
+                    String custLastName = dialog.lastnameEditOrder.Text;
+                    String drivingLicense = dialog.drivingLicenseEditOrder.Text;
+                    if (fromDate != null && toDate != null && carID != null &&
+                        custName != null && custLastName != null && drivingLicense != null)
+                    {
+                        // Initialize PKs for new order insertion
+                        // Getting a PK of a car using the regNumber (also unique)
+                        int carPK = (from c in this.dbContext.Cars where c.regNumber == carID select c.ID).FirstOrDefault();
+                        // Set to 0, reassign value later in the code depending on condition
+                        int customerPK = 0;
+                        Boolean newCustomer = true;
+
+                        // Checking if a customer already in DB
+                        var query = from cu in this.dbContext.Customers select cu;
+                        foreach (var customer in query)
+                        {
+                            if (drivingLicense.ToUpper() == customer.drivingLicense.ToUpper())
+                            {
+                                // Customer in a DB, taking his ID
+                                customerPK = customer.ID;
+                                newCustomer = false;
+                                break;
+                            }
+                        }
+
+                        // If customer is new
+                        if (newCustomer)
+                        {
+                            // Save customer to DB
+                            Customers newCu = new Customers { firstName = custName, lastName = custLastName, drivingLicense = drivingLicense };
+                            this.dbContext.Customers.Add(newCu);
+                            this.dbContext.SaveChanges();
+                            // Fetch an just inserted customer's ID
+                            customerPK = newCu.ID;
+                        }
+
+                        int oUpdateID = item.ID;
+                        var queryUpdate = from o in this.dbContext.Orders
+                            where o.ID == oUpdateID
+                            select o;
+
+                        foreach (Orders o in queryUpdate)
+                        {
+                            o.carID = carPK;
+                            o.customerID = customerPK;
+                            o.startDate = fromDate;
+                            o.duration = duration;
+                        }
+                        
+                        this.dbContext.SaveChanges();
+                    }
+                }
+
+                // Refresh the list
+                switch (orderListType)
+                {
+                    case 0:
+                        DisplayAllOrders();
+                        break;
+                    case 1:
+                        DisplayCurrentOrders();
+                        break;
+                    case 2:
+                        DisplayPendingOrders();
+                        break;
+                    case 3:
+                        DisplayCompletedOrders();
+                        break;
+                }
             }
         }
     }

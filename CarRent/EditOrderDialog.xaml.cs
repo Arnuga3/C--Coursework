@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Data.Entity.SqlServer;
 
 namespace CarRent
@@ -32,7 +23,7 @@ namespace CarRent
             this.startDateEditOrder.SelectedDate = order.startDate;
             this.endDateEditOrder.SelectedDate = order.endDate;
             this.drivingLicenseEditOrder.Text = order.license;
-            this.CurrCarLabel.Content = "Car registration number: " + order.regNumber;
+            this.carListEditOrder.SelectedValue = order.regNumber;
 
 
             LoadCarComboBox();
@@ -53,9 +44,10 @@ namespace CarRent
                     (from c in this.dbContext.Cars
                      join o in this.dbContext.Orders on c.ID equals o.carID
                      let oEndDate = SqlFunctions.DateAdd("dd", o.duration, o.startDate)
-                     where (o.startDate <= fromD && oEndDate >= fromD) ||
-                           (o.startDate >= fromD && oEndDate <= toD) ||
-                           (o.startDate <= toD && oEndDate >= toD)
+                     // Filter not vailable cars by dates + ignoring the from a current order
+                     where (o.startDate <= fromD && oEndDate >= fromD && o.ID != order.ID) ||
+                           (o.startDate >= fromD && oEndDate <= toD && o.ID != order.ID) ||
+                           (o.startDate <= toD && oEndDate >= toD && o.ID != order.ID)
                      select c.regNumber)
                 );
 
@@ -86,17 +78,42 @@ namespace CarRent
 
         private void carListEditOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
+        }
+        
+        private void DeleteBtnEditOrder_Click(object sender, RoutedEventArgs e)
+        {
+            var query = (from o in dbContext.Orders
+                        where o.ID == order.ID
+                        select o).FirstOrDefault();
+            dbContext.Orders.Remove(query);
+            dbContext.SaveChanges();
+            this.Close();
         }
 
         private void CancelBtnEditOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void drivingLicenseEditOrder_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            this.dbContext = new CarRentModelContainer();
+            var query = from cu in this.dbContext.Customers select cu;
+            foreach (var customer in query)
+            {
+                if (this.drivingLicenseEditOrder.Text.ToUpper() == customer.drivingLicense.ToUpper())
+                {
+                    this.firstnameEditOrder.Text = customer.firstName;
+                    this.lastnameEditOrder.Text = customer.lastName;
+                    break;
+                }
+                else
+                {
+                    this.firstnameEditOrder.Text = "";
+                    this.lastnameEditOrder.Text = "";
+                }
+            }
         }
     }
 }
