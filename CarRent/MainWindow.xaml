@@ -15,7 +15,7 @@
             <ColumnDefinition Width="40*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Height="295" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,14,-80,0">
-            <TabControl x:Name="tabControl" Height="315" Margin="0,0,80,0">
+            <TabControl x:Name="tabControl" Height="315" Margin="0,0,80,0" SelectionChanged="OnSelectionChanged">
                 <TabItem Header="Rental Orders" Width="100">
                     <TabItem.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">

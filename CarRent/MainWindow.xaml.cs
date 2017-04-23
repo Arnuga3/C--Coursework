@@ -31,13 +31,22 @@ namespace CarRent
             this.dbContext.Orders.Add(order);
             this.dbContext.SaveChanges();
             */
-            
 
             DisplayAllOrders();
             DisplayAllCarsList();
             DisplayAllCustomersList();
         }
 
+        // Refresh lists on tab change to refresh the content
+        private void OnSelectionChanged(Object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl)
+            {
+                DisplayAllOrders();
+                DisplayAllCarsList();
+                DisplayAllCustomersList();
+            }
+        }
 
         /*
          * CUSTOMERS TAB
@@ -115,17 +124,15 @@ namespace CarRent
         private void listViewCars_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             object selected = this.listViewCars.SelectedItem;
-            if (selected == null)
-                return;
-                Cars car = (Cars)selected;
-                EditCarDialog dialog = new EditCarDialog(car);
-                bool? result = dialog.ShowDialog();
+            if (selected == null) return;
+            Cars car = (Cars)selected;
+            EditCarDialog dialog = new EditCarDialog(car);
+            bool? result = dialog.ShowDialog();
             if (result == true)
             {
-                car.regNumber = dialog.RegNumNewCar.Text;
-                car.dailyRate = Double.Parse(dialog.DailyRateNewCar.Text);
-                this.dbContext.SaveChanges();
+                
             }
+            DisplayAllCarsList();
         }
 
 
