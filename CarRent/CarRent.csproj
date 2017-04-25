@@ -72,6 +72,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EditCustomerDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditOrderDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +111,9 @@
     </Compile>
     <Compile Include="EditCarDialog.xaml.cs">
       <DependentUpon>EditCarDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditCustomerDialog.xaml.cs">
+      <DependentUpon>EditCustomerDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditOrderDialog.xaml.cs">
       <DependentUpon>EditOrderDialog.xaml</DependentUpon>

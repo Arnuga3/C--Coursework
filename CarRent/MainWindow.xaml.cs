@@ -82,6 +82,19 @@ namespace CarRent
             
         }
 
+        private void listViewCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            object selected = this.listViewCustomers.SelectedItem;
+            if (selected == null) return;
+            Customers customer = (Customers)selected;
+            EditCustomerDialog dialog = new EditCustomerDialog(customer);
+            bool? result = dialog.ShowDialog();
+            if (result == true)
+            {
+
+            }
+            DisplayAllCustomersList();
+        }
 
         /*
          * CARS TAB
@@ -164,6 +177,17 @@ namespace CarRent
                             dailyRate = c.dailyRate,
                             total = o.duration * c.dailyRate,
                         };
+            // Labels (for summary)
+            int orderNum = 0;
+            double totalPrice = 0;
+            foreach (var order in query)
+            {
+                orderNum++;
+                totalPrice += order.total;
+            }
+            this.totalOrders.Content = "Total orders: " + orderNum;
+            this.totalFinance.Content = "Total (£): " + totalPrice;
+
             // Bind to a list
             listView.ItemsSource = query.ToList();
         }
@@ -261,18 +285,21 @@ namespace CarRent
             orderListType = 0;
             DisplayAllOrders();
         }
+
         // CURRENT orders list btn action
         private void CurrentOrderBtn_Click(object sender, RoutedEventArgs e)
         {
             orderListType = 1;
             DisplayCurrentOrders();
         }
+
         // PENDING orders list btn action
         private void PendingOrderBtn_Click(object sender, RoutedEventArgs e)
         {
             orderListType = 2;
             DisplayPendingOrders();
         }
+
         // COMPLETED orders list btn action
         private void CompletedOrderBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -298,8 +325,9 @@ namespace CarRent
                 String custName = dialog.firstnameNewOrder.Text;
                 String custLastName = dialog.lastnameNewOrder.Text;
                 String drivingLicense = dialog.drivingLicenseNewOrder.Text;
-                if (fromDate != null && toDate != null && carID != null &&
-                    custName != null && custLastName != null && drivingLicense != null)
+                if (fromDate != null && toDate != null && (carID != null && carID != "") &&
+                    (custName != null && custName != "") && (custLastName != null && custLastName != "") 
+                    && (drivingLicense != null && drivingLicense != ""))
                 {
                     // Initialize PKs for new order insertion
                     // Getting a PK of a car using the regNumber (also unique)
@@ -350,6 +378,10 @@ namespace CarRent
                             break;
                     }
                     
+                }
+                else
+                {
+                    MessageBox.Show("Order wasn't saved as not all inforamtion was provided.");
                 }
             }
         }
@@ -456,6 +488,23 @@ namespace CarRent
                 }
             }
         }
+
+        // Delete all orders
+        private void DeleteAllOrders_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("All orders will be permanently deleted. Delete anyway?", "Delete Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                this.dbContext = new CarRentModelContainer();
+                var query = from o in this.dbContext.Orders
+                            select o;
+                foreach (var order in query)
+                {
+                    this.dbContext.Orders.Remove(order);
+                }
+                this.dbContext.SaveChanges();
+                DisplayAllOrders();
+            }
+        }
     }
 }
-

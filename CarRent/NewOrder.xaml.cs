@@ -21,12 +21,14 @@ namespace CarRent
     public partial class NewOrder : Window
     {
         private CarRentModelContainer dbContext;
+        DateTime initialDate;
 
         public NewOrder()
         {
             InitializeComponent();
             this.startDateNewOrder.SelectedDate = DateTime.Now;
             this.endDateNewOrder.SelectedDate = DateTime.Now;
+            initialDate = (DateTime)this.endDateNewOrder.SelectedDate;
             LoadCarComboBox();
         }
 
@@ -55,7 +57,14 @@ namespace CarRent
 
         private void handleDayPickerDates(object sender, RoutedEventArgs e)
         {
-            LoadCarComboBox();
+            DateTime fromD = (DateTime)this.startDateNewOrder.SelectedDate;
+            DateTime max30 = fromD.AddDays(30);
+
+            if (this.endDateNewOrder.SelectedDate > max30)
+            {
+                MessageBox.Show("The maximum duration is 30 Days.");
+                this.endDateNewOrder.SelectedDate = initialDate;
+            } else LoadCarComboBox();
         }
 
         private void carListNewOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
