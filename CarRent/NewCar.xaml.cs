@@ -38,7 +38,7 @@ namespace CarRent
         {
             this.Close();
         }
-
+        // Checking if the car registration number is already in db
         private void RegNumNewCar_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.dbContext = new CarRentModelContainer();
@@ -47,7 +47,7 @@ namespace CarRent
             {
                 if (this.RegNumNewCar.Text.ToUpper() == car.regNumber.ToUpper())
                 {
-                    this.errorLabel.Content = "! That car is already registered.";
+                    this.errorLabel.Content = "That car is already registered.";
                     allowSaving = false;
                     break;
                 }

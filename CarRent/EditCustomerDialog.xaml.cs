@@ -31,17 +31,20 @@ namespace CarRent
             this.drivingLicenseEdit.Text = customer.drivingLicense;
         }
 
+        // Save customer details
         private void SaveEditCarBtn_Click(object sender, RoutedEventArgs e)
         {
             this.dbContext = new CarRentModelContainer();
+            // Getting the customer row
             var query = (from cu in this.dbContext.Customers
                           where cu.ID == customer.ID
                           select cu).FirstOrDefault();
-
+            // Assign new values
             query.firstName = this.firstNameEdit.Text;
             query.lastName = this.lastNameEdit.Text;
             query.drivingLicense = this.drivingLicenseEdit.Text;
 
+            // Save to db
             this.dbContext.SaveChanges();
             this.Close();
         }
@@ -55,7 +58,7 @@ namespace CarRent
             // Not in orders
             if (query == null)
             {
-                // Delete this car
+                // Delete a customer
                 var query2 = (from c in this.dbContext.Customers
                               where c.ID == customer.ID
                               select c).FirstOrDefault();

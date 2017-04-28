@@ -20,6 +20,7 @@ namespace CarRent
             InitializeComponent();
 
             this.order = order;
+            // Fill the form with existing information
             this.startDateEditOrder.SelectedDate = order.startDate;
             this.endDateEditOrder.SelectedDate = order.endDate;
             this.drivingLicenseEditOrder.Text = order.license;
@@ -37,7 +38,7 @@ namespace CarRent
             DateTime fromD = (DateTime)this.startDateEditOrder.SelectedDate;
             var toD = this.endDateEditOrder.SelectedDate;
 
-            // Get all cart available within selected dates and add them to a comboBox
+            // Get all cars available within selected dates and add them to a comboBox
             var query = (from c in this.dbContext.Cars select c.regNumber)
                 .Except
                 (
@@ -53,7 +54,7 @@ namespace CarRent
 
             this.carListEditOrder.ItemsSource = query.ToList();
         }
-
+        // Getting a customer using his license(unique)
         private void LoadCustomerDetails()
         {
             this.dbContext = new CarRentModelContainer();
@@ -80,7 +81,7 @@ namespace CarRent
         {
             
         }
-        
+        // Delete current order
         private void DeleteBtnEditOrder_Click(object sender, RoutedEventArgs e)
         {
             var query = (from o in dbContext.Orders
@@ -95,7 +96,7 @@ namespace CarRent
         {
             this.Close();
         }
-
+        // Preload name and surname of a customer if there is a match in driving license
         private void drivingLicenseEditOrder_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.dbContext = new CarRentModelContainer();

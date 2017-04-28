@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace CarRent
 {
+    /* Order information is expanded during the data retrieval from a database,
+     * additional calculations are performed and new properties generated.
+     * All that information is saved into an instance of this class and passed to 
+     * edit order dialog window.
+     */
+
     public partial class OrderFullDetails
     {
         public int ID { get; set; }

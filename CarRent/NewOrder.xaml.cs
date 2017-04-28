@@ -58,13 +58,24 @@ namespace CarRent
         private void handleDayPickerDates(object sender, RoutedEventArgs e)
         {
             DateTime fromD = (DateTime)this.startDateNewOrder.SelectedDate;
+            // Max order duration is 30 days
             DateTime max30 = fromD.AddDays(30);
 
+            // If longer than 30 days - display a message
             if (this.endDateNewOrder.SelectedDate > max30)
             {
                 MessageBox.Show("The maximum duration is 30 Days.");
+                // Return to initial date
                 this.endDateNewOrder.SelectedDate = initialDate;
-            } else LoadCarComboBox();
+            // If end date is earlier than start date - display a message
+            } else if (this.endDateNewOrder.SelectedDate < this.startDateNewOrder.SelectedDate)
+            {
+                MessageBox.Show("End date cannot be before the start date.");
+                // Return to initial date
+                this.endDateNewOrder.SelectedDate = initialDate;
+            }
+            // Load available cars if no errors in dates
+            else LoadCarComboBox();
         }
 
         private void carListNewOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -82,7 +93,7 @@ namespace CarRent
         {
             this.Close();
         }
-
+        // Preload a name and a surname of a customer if match in driving license
         private void drivingLicenseNewOrder_TextChanged(object sender, TextChangedEventArgs e)
         {
             this.dbContext = new CarRentModelContainer();

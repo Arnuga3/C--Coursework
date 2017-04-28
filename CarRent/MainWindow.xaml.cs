@@ -121,9 +121,12 @@ namespace CarRent
             {
                 String regNum = dialog.RegNumNewCar.Text;
                 String dailyRateField = dialog.DailyRateNewCar.Text;
+                float dailyRate;
+
                 if (regNum != null && dailyRateField != null)
                 {
-                    float dailyRate = (float)Convert.ToDouble(dialog.DailyRateNewCar.Text);
+                    // Catch invalid data input from a user
+                    float.TryParse(dialog.DailyRateNewCar.Text, out dailyRate);
 
                     Cars car = new Cars { regNumber = regNum, dailyRate = dailyRate };
                     this.dbContext.Cars.Add(car);
@@ -319,7 +322,7 @@ namespace CarRent
                 DateTime fromDate = (DateTime)dialog.startDateNewOrder.SelectedDate;
                 DateTime toDate = (DateTime)dialog.endDateNewOrder.SelectedDate;
                 // Calc the duration
-                int duration = (toDate - fromDate).Days;
+                int duration = (toDate == fromDate) ? 1 : (toDate - fromDate).Days + 1;
                 // >>> carID is actually a regNumber HERE!!!
                 String carID = dialog.carListNewOrder.Text;
                 String custName = dialog.firstnameNewOrder.Text;
